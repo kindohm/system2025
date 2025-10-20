@@ -1,4 +1,17 @@
 {
   "name": "system-2025",
-  "packageManager": "yarn@4.10.3"
+  "packageManager": "yarn@4.10.3",
+  "scripts": {
+    "build": "tsc",
+    "dev": "ts-node src/index.ts --watch"
+  },
+  "devDependencies": {
+    "@types/express": "^5.0.3",
+    "@types/node": "^24.8.1",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.9.3"
+  },
+  "dependencies": {
+    "express": "^5.1.0"
+  }
 }
