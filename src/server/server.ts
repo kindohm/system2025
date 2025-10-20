@@ -27,9 +27,7 @@ app.get("/show/code", (req: Request, res: Response) => {
 
 app.post("/:instrument/:feature/:action", (req: Request, res: Response) => {
   const { instrument, feature, action } = req.params;
-  const body = req.body;
-
-  console.log("body!", body);
+  const { body } = req;
 
   // Validate parameters exist
   if (!instrument || !feature || !action) {
@@ -52,7 +50,7 @@ app.post("/:instrument/:feature/:action", (req: Request, res: Response) => {
     return res.status(400).json({ error: "Handler not found for action" });
   }
 
-  actionHandler();
+  actionHandler(body);
 
   res.status(200).json(getState());
 });
