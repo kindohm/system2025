@@ -5,7 +5,7 @@ export const getTidalCode = (state: State) => {
   const drums = getDrumsCode(state);
   return `
 do
-  let gtfo = id
+  let gtfo x = (const $ s "~") $ x
   ${drums}
 `;
 };

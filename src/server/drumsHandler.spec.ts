@@ -1,5 +1,5 @@
 import { State } from "../state/state";
-import { nudgeMarkov } from "./drumsHandler";
+import { drumsHandler } from "./drumsHandler";
 
 // Mock the state module
 jest.mock("../state/state", () => ({
@@ -36,7 +36,7 @@ describe("drumsHandler", () => {
     mockGetState.mockReturnValue(mockState);
     mockUpdateState.mockImplementation((newState) => newState);
 
-    const result = nudgeMarkov();
+    const result = drumsHandler.markov.nudge();
 
     expect(result.drums.markovStates.length).toEqual(3);
 

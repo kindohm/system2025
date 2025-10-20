@@ -1,7 +1,7 @@
 import { getState, State, updateState } from "../state/state";
-import { nudge } from "../util/random";
+import { getRand, nudge } from "../util/random";
 
-export const mute = () => {
+const mute = () => {
   const oldState = getState();
   const oldDrums = oldState.drums;
   const newState: State = {
@@ -11,7 +11,7 @@ export const mute = () => {
   return updateState(newState);
 };
 
-export const play = () => {
+const play = () => {
   const oldState = getState();
   const oldDrums = oldState.drums;
   const newState: State = {
@@ -21,7 +21,7 @@ export const play = () => {
   return updateState(newState);
 };
 
-export const nudgeMarkov = () => {
+const nudgeMarkov = () => {
   const oldState = getState();
   const oldDrums = oldState.drums;
   const oldMarkovStates = oldDrums.markovStates;
@@ -42,4 +42,41 @@ export const nudgeMarkov = () => {
   };
 
   return updateState(newState);
+};
+
+const randomizeMarkov = () => {
+  const oldState = getState();
+  const oldDrums = oldState.drums;
+  const newMarkovStates = [
+    [getRand(0, 1), getRand(0, 1), getRand(0, 1), getRand(0, 1)],
+    [getRand(0, 1), getRand(0, 1), getRand(0, 1), getRand(0, 1)],
+    [getRand(0, 1), getRand(0, 1), getRand(0, 1), getRand(0, 1)],
+    [getRand(0, 1), getRand(0, 1), getRand(0, 1), getRand(0, 1)],
+  ];
+
+  const newState: State = {
+    ...oldState,
+    drums: { ...oldDrums, markovStates: newMarkovStates },
+  };
+
+  return updateState(newState);
+};
+
+const setMask = (mask: string) => {
+  const oldState = getState();
+  const oldDrums = oldState.drums;
+
+  const newState = { ...oldState, drums: { ...oldDrums, mask } };
+  return updateState(newState);
+};
+
+export const drumsHandler = {
+  core: { mute, play },
+  mask: {
+    set: setMask,
+  },
+  markov: {
+    randomize: randomizeMarkov,
+    nudge: nudgeMarkov,
+  },
 };

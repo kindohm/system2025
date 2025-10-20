@@ -8,6 +8,9 @@ import { getTidalCode } from "../tidal/getTidalCode";
 const app = express();
 const port = 3000;
 
+// Add middleware to parse JSON and text request bodies
+app.use(express.json());
+
 stateListener.start();
 getProcess();
 
@@ -22,8 +25,16 @@ app.get("/show/code", (req: Request, res: Response) => {
   res.status(200).send(code);
 });
 
-app.post("/:instrument/:action", (req: Request, res: Response) => {
-  const { instrument, action } = req.params;
+app.post("/:instrument/:feature/:action", (req: Request, res: Response) => {
+  const { instrument, feature, action } = req.params;
+  const body = req.body;
+
+  console.log("body!", body);
+
+  // Validate parameters exist
+  if (!instrument || !feature || !action) {
+    return res.status(400).json({ error: "Missing required parameters" });
+  }
 
   // Type-safe dynamic access with runtime validation
   const instrumentHandlers = handlers[instrument as keyof typeof handlers];
@@ -31,19 +42,19 @@ app.post("/:instrument/:action", (req: Request, res: Response) => {
     return res.status(400).json({ error: "Handler not found for instrument" });
   }
 
-  const actionHandler =
-    instrumentHandlers[action as keyof typeof instrumentHandlers];
+  const featureHandlers = (instrumentHandlers as any)[feature];
+  if (!featureHandlers || typeof featureHandlers !== "object") {
+    return res.status(400).json({ error: "Handler not found for feature" });
+  }
+
+  const actionHandler = featureHandlers[action];
   if (!actionHandler || typeof actionHandler !== "function") {
     return res.status(400).json({ error: "Handler not found for action" });
   }
 
-  if (!isBooted()) {
-    return res.status(418).json({ message: "still booting" });
-  }
-
   actionHandler();
 
-  res.status(200).send();
+  res.status(200).json(getState());
 });
 
 app.listen(port, () => {

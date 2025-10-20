@@ -1,13 +1,21 @@
 import { State } from "../state/state";
-import * as drumsHandler from "./drumsHandler";
+import { drumsHandler } from "./drumsHandler";
 
 export type Handler = {
-  mute: () => State;
-  play: () => State;
+  core: {
+    mute: () => State;
+    play: () => State;
+  };
 };
 
 export type DrumsHandler = Handler & {
-  nudgeMarkov: () => State;
+  markov: {
+    nudge: () => State;
+    randomize: () => State;
+  };
+  mask: {
+    set: (maskString: string) => State;
+  };
 };
 
 export type Handlers = {
