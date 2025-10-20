@@ -1,10 +1,16 @@
 import express, { Request, Response } from "express";
+import * as stateListener from "./tidal/stateListener";
+import { getState, State, updateState } from "./state/state";
+import { getProcess } from "./repl/getProcess";
 
 const app = express();
 const port = 3000;
 
 const validInstruments = new Set(["drums", "drone", "perc", "synth"]);
 const validActions = new Set(["play", "mute"]);
+
+stateListener.start();
+getProcess();
 
 app.post("/:instrument/:action", (req: Request, res: Response) => {
   const { instrument, action } = req.params;
@@ -24,6 +30,14 @@ app.post("/:instrument/:action", (req: Request, res: Response) => {
       )}`,
     });
   }
+
+  const state = getState();
+  const newState: State = {
+    ...state,
+    drums: { muted: action === "mute" ? true : false },
+  };
+
+  updateState(newState);
 
   res.json({ instrument, action });
 });

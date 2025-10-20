@@ -17,7 +17,7 @@ export const getTidalBootPath = () => {
     .replace("data-dir: ", "")
     .trim();
 
-  const packagePath = path.join(dataDir);
+  const packagePath = path.join(dataDir, "BootTidal.hs");
 
   info(`Using default Tidal boot file from package path: "${packagePath}"`);
   return packagePath;

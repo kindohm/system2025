@@ -1,5 +1,6 @@
 import * as path from "path";
 import * as fs from "fs";
+import * as os from "os";
 import * as child_process from "child_process";
 import { getTidalBootPath } from "./getTidalBootPath";
 import { info, error } from "./logger";
@@ -43,6 +44,7 @@ export const getProcess = (): child_process.ChildProcessWithoutNullStreams => {
 
     const raw = fs.readFileSync(tidalBootPath, "utf-8");
 
+    info(`spawning child Tidal process...`);
     proc = child_process.spawn(ghciPath, [], { shell: true });
 
     proc.stderr.on("data", (data) => {
