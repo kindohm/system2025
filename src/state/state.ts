@@ -34,6 +34,7 @@ export const updateState = (newState: State) => {
 
   // Emit an event when state update is complete
   stateEventEmitter.emit("stateUpdated", state);
+  return state;
 };
 
 export const getState = () => state;

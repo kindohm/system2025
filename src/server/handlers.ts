@@ -1,12 +1,17 @@
+import { State } from "../state/state";
 import * as drumsHandler from "./drumsHandler";
 
 export type Handler = {
-  mute: () => void;
-  play: () => void;
+  mute: () => State;
+  play: () => State;
+};
+
+export type DrumsHandler = Handler & {
+  nudgeMarkov: () => State;
 };
 
 export type Handlers = {
-  drums: Handler;
+  drums: DrumsHandler;
 };
 
 export const handlers: Handlers = {
