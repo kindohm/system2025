@@ -1,7 +1,7 @@
 import { EventEmitter } from "events";
 
 type Part = {
-  muted: boolean;
+  playing: boolean;
 };
 
 export type Drums = Part & { mask: string; markovStates: Array<Array<number>> };
@@ -11,14 +11,11 @@ export type Synth = Part;
 
 export type State = {
   drums: Drums;
-  drone: Drone;
-  perc: Perc;
-  synth: Synth;
 };
 
 let state: State = {
   drums: {
-    muted: true,
+    playing: true,
     mask: "1",
     markovStates: [
       [0.5, 0.5, 0.5, 0.5],
@@ -27,9 +24,6 @@ let state: State = {
       [0.5, 0.5, 0.5, 0.5],
     ],
   },
-  perc: { muted: true },
-  drone: { muted: true },
-  synth: { muted: true },
 };
 
 // Create an EventEmitter instance for broadcasting state updates

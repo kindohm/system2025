@@ -1,7 +1,7 @@
 import express, { Request, Response } from "express";
 import * as stateListener from "./../tidal/stateListener";
 import { getProcess, isBooted } from "./../repl/getProcess";
-import { handlers, validActions, validInstruments } from "./handlers";
+import { handlers } from "./handlers";
 import { getState } from "../state/state";
 import { getTidalCode } from "../tidal/getTidalCode";
 

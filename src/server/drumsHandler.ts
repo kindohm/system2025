@@ -5,7 +5,7 @@ export const mute = () => {
   const oldDrums = oldState.drums;
   const newState: State = {
     ...oldState,
-    drums: { ...oldDrums, muted: true },
+    drums: { ...oldDrums, playing: false },
   };
   updateState(newState);
 };
@@ -15,7 +15,7 @@ export const play = () => {
   const oldDrums = oldState.drums;
   const newState: State = {
     ...oldState,
-    drums: { ...oldDrums, muted: false },
+    drums: { ...oldDrums, playing: true },
   };
   updateState(newState);
 };
