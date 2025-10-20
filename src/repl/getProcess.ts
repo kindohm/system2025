@@ -98,3 +98,7 @@ const cleanStdErr = (stderr: string) => {
     .replace(/<interactive>.*error:/g, "")
     .replace(/ \(bound at.*/g, "");
 };
+
+export const isBooted = () => {
+  return booted;
+};

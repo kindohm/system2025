@@ -1,7 +1,7 @@
 import express, { Request, Response } from "express";
 import * as stateListener from "./tidal/stateListener";
 import { getState, State, updateState } from "./state/state";
-import { getProcess } from "./repl/getProcess";
+import { getProcess, isBooted } from "./repl/getProcess";
 
 const app = express();
 const port = 3000;
@@ -31,6 +31,10 @@ app.post("/:instrument/:action", (req: Request, res: Response) => {
     });
   }
 
+  if (!isBooted()) {
+    return res.status(418).json({ message: "still booting" });
+  }
+
   const state = getState();
   const newState: State = {
     ...state,
@@ -39,7 +43,7 @@ app.post("/:instrument/:action", (req: Request, res: Response) => {
 
   updateState(newState);
 
-  res.json({ instrument, action });
+  res.status(200).send(); //json({ instrument, action });
 });
 
 app.listen(port, () => {

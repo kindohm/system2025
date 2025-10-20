@@ -19,6 +19,5 @@ export const start = () => {
 
 const sendToTidal = () => {
   const code = getTidalCode(getState());
-  console.log("code:", code);
   send(code);
 };
