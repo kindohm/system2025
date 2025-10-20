@@ -3,7 +3,7 @@
   "packageManager": "yarn@4.10.3",
   "scripts": {
     "build": "tsc",
-    "dev": "ts-node src/index.ts --watch"
+    "dev": "ts-node src/server/server.ts --watch"
   },
   "devDependencies": {
     "@types/express": "^5.0.3",

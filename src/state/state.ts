@@ -4,7 +4,7 @@ type Part = {
   muted: boolean;
 };
 
-export type Drums = Part;
+export type Drums = Part & { mask: string; markovStates: Array<Array<number>> };
 export type Drone = Part;
 export type Perc = Part;
 export type Synth = Part;
@@ -19,6 +19,13 @@ export type State = {
 let state: State = {
   drums: {
     muted: true,
+    mask: "1",
+    markovStates: [
+      [0.5, 0.5, 0.5, 0.5],
+      [0.5, 0.5, 0.5, 0.5],
+      [0.5, 0.5, 0.5, 0.5],
+      [0.5, 0.5, 0.5, 0.5],
+    ],
   },
   perc: { muted: true },
   drone: { muted: true },
