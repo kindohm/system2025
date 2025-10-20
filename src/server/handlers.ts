@@ -14,7 +14,7 @@ export type DrumsHandler = Handler & {
     randomize: () => State;
   };
   mask: {
-    set: (maskString: string) => State;
+    set: (data: { mask: string }) => State;
   };
 };
 

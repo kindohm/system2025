@@ -62,11 +62,11 @@ const randomizeMarkov = () => {
   return updateState(newState);
 };
 
-const setMask = (mask: string) => {
+const setMask = (data: { mask: string }) => {
   const oldState = getState();
   const oldDrums = oldState.drums;
 
-  const newState = { ...oldState, drums: { ...oldDrums, mask } };
+  const newState = { ...oldState, drums: { ...oldDrums, mask: data.mask } };
   return updateState(newState);
 };
 
